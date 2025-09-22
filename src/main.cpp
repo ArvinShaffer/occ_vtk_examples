@@ -1,11 +1,11 @@
 #include <QApplication>
-#include "icpprepost.h"
+#include "QMainWindow"
+#include "../mainwindow.h"
 
 int main(int argc, char* argv[])
 {
-    QSurfaceFormat::setDefaultFormat(QVTKOpenGLNativeWidget::defaultFormat());
     QApplication a(argc, argv);
-    ICPPrePost w;
+    MainWindow w;
     w.show();
     return a.exec();
 }

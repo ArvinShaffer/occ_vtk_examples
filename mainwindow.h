@@ -1,8 +1,7 @@
-#ifndef  ICPPREPOST_H
-#define ICPPREPOST_H
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
 
 #include <QMainWindow>
-
 // vtk include file
 #include <QVTKOpenGLNativeWidget.h>
 #include <vtkGenericOpenGLRenderWindow.h>
@@ -67,18 +66,20 @@
 VTK_MODULE_INIT(vtkRenderingOpenGL2);
 VTK_MODULE_INIT(vtkInteractionStyle);
 
-class QMenuBar;
-class QStatusBar;
-class ICPPrePost : public QMainWindow
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
+
 public:
-    ICPPrePost(QWidget *parent = nullptr);
-    ~ICPPrePost();
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+
 private:
-    QVTKOpenGLNativeWidget* openGLWidget;
-    QMenuBar* menubar;
-    QStatusBar* statusbar;
+    Ui::MainWindow *ui;
 };
 
-#endif   // ICPPREPOST_H
+#endif // MAINWINDOW_H

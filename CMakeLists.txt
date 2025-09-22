@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
 # Find required packages
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
@@ -27,16 +28,18 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
 # Set source files
 set(SOURCES
     src/main.cpp
-    src/icpprepost.cpp
+
 
 )
 
 set(HEADERS
-    src/icpprepost.h
+
 )
 
+
 # Add executable
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS}
+    mainwindow.h mainwindow.cpp mainwindow.ui)
 
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE

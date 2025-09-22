@@ -1,26 +1,11 @@
-#include "icpprepost.h"
-#include <QMenuBar>
-#include <QStatusBar>
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
-
-ICPPrePost::ICPPrePost(QWidget* parent) : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
 {
-    setWindowTitle("ICPPrePost");
-    resize(1200, 1200);
-
-    QWidget* centralWidget = new QWidget(this);
-    setCentralWidget(centralWidget);
-
-    openGLWidget = new QVTKOpenGLNativeWidget(centralWidget);
-    openGLWidget->setGeometry(60, 40, 1100, 1100);
-
-    menubar = new QMenuBar(this);
-    menubar->setGeometry(QRect(0, 0, 800, 22));
-    setMenuBar(menubar);
-
-    statusbar = new QStatusBar(this);
-    setStatusBar(statusbar);
-
+    ui->setupUi(this);
     BRepPrimAPI_MakeBox mkBox(1., 2., 3);
     const TopoDS_Shape& shape = mkBox.Shape();
     vtkNew<vtkNamedColors> colors;
@@ -40,10 +25,10 @@ ICPPrePost::ICPPrePost(QWidget* parent) : QMainWindow(parent)
     vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
     renderWindow->AddRenderer(renderer);
     renderWindow->SetWindowName("icpprepost");
-    openGLWidget->setRenderWindow(renderWindow);
+    ui->openGLWidget->setRenderWindow(renderWindow);
 }
 
-ICPPrePost::~ICPPrePost()
+MainWindow::~MainWindow()
 {
-
+    delete ui;
 }
