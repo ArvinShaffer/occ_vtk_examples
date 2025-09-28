@@ -23,6 +23,7 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
     RenderingGL2PSOpenGL2
     RenderingOpenGL2
     GUISupportQt
+    IOLegacy
 )
 
 # Set source files
@@ -33,13 +34,14 @@ set(SOURCES
 )
 
 set(HEADERS
-
+    global_headers.h
 )
 
 
 # Add executable
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS}
-    mainwindow.h mainwindow.cpp mainwindow.ui)
+    mainwindow.h mainwindow.cpp mainwindow.ui
+    )
 
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE

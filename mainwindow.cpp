@@ -6,29 +6,61 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    BRepPrimAPI_MakeBox mkBox(1., 2., 3);
-    const TopoDS_Shape& shape = mkBox.Shape();
-    vtkNew<vtkNamedColors> colors;
-    vtkNew<IVtkTools_ShapeDataSource> occSource;
-    occSource->SetShape(new IVtkOCC_Shape(shape));
 
-    vtkNew<vtkPolyDataMapper> mapper;
-    mapper->SetInputConnection(occSource->GetOutputPort());
 
-    vtkNew<vtkActor> actor;
-    actor->SetMapper(mapper);
+    renWin3d = vtkSmartPointer<vtkGenericOpenGLRenderWindow>::New();
+    current_actor = vtkSmartPointer<vtkActor>::New();
 
-    vtkNew<vtkRenderer> renderer;
-    renderer->AddActor(actor);
-    renderer->SetBackground(colors->GetColor3d("SteelBlue").GetData());
+    main_render_3d = vtkSmartPointer<vtkRenderer>::New();
+    ugrid = vtkSmartPointer<vtkUnstructuredGrid>::New();
+    colors = vtkSmartPointer<vtkNamedColors>::New();
+    main_render_3d->SetBackground(colors->GetColor3d("SteelBlue").GetData());
 
-    vtkNew<vtkGenericOpenGLRenderWindow> renderWindow;
-    renderWindow->AddRenderer(renderer);
-    renderWindow->SetWindowName("icpprepost");
-    ui->openGLWidget->setRenderWindow(renderWindow);
+    renWin3d->AddRenderer(main_render_3d);
+    ui->openGLWidget->setRenderWindow(renWin3d);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_btn_load_clicked()
+{
+    main_render_3d->RemoveAllViewProps();
+    vtkSmartPointer<vtkUnstructuredGridReader> vtkReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
+    vtkReader->SetFileName("/home/xsr/temp/datavtk/test.vtk");
+    vtkReader->Update();
+    ugrid = vtkReader->GetOutput();
+    vtkSmartPointer<vtkDataSetMapper> skinMapper = vtkSmartPointer<vtkDataSetMapper>::New();
+    skinMapper->SetInputData(ugrid);
+    vtkSmartPointer<vtkActor> skin = vtkSmartPointer<vtkActor>::New();
+    skin->SetMapper(skinMapper);
+
+    //skin->GetProperty()->SetRepresentationToWireframe();
+
+    main_render_3d->AddActor(skin);
+    main_render_3d->ResetCamera();
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+
+
+void MainWindow::on_btn_occbox_clicked()
+{
+    main_render_3d->RemoveAllViewProps();
+    BRepPrimAPI_MakeBox mkBox(1., 2., 3);
+    const TopoDS_Shape& shape = mkBox.Shape();
+    //vtkNew<vtkNamedColors> colors;
+    vtkNew<IVtkTools_ShapeDataSource> occSource;
+    occSource->SetShape(new IVtkOCC_Shape(shape));
+
+    vtkNew<vtkPolyDataMapper> mapper;
+    mapper->SetInputConnection(occSource->GetOutputPort());
+    current_actor->SetMapper(mapper);
+    main_render_3d->AddActor(current_actor);
+    main_render_3d->ResetCamera();
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+
