@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(ICPPrePost VERSION 1.0.0 LANGUAGES CXX)
+project(occvtkex VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -29,8 +29,6 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
 # Set source files
 set(SOURCES
     src/main.cpp
-
-
 )
 
 set(HEADERS

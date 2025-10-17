@@ -27,9 +27,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_btn_load_clicked()
 {
+    QString vtkPath = QFileDialog::getOpenFileName(
+        this,
+        tr("open vtk file"),
+        "..",
+        tr("vtk file (*.vtk)"));
+    if (vtkPath.isEmpty()) {
+        return;
+    }
     main_render_3d->RemoveAllViewProps();
     vtkSmartPointer<vtkUnstructuredGridReader> vtkReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
-    vtkReader->SetFileName("/home/xsr/temp/datavtk/test.vtk");
+    vtkReader->SetFileName(vtkPath.toUtf8().constData());
     vtkReader->Update();
     ugrid = vtkReader->GetOutput();
     vtkSmartPointer<vtkDataSetMapper> skinMapper = vtkSmartPointer<vtkDataSetMapper>::New();
