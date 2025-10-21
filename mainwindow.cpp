@@ -72,3 +72,40 @@ void MainWindow::on_btn_occbox_clicked()
     ui->openGLWidget->update();
 }
 
+
+void MainWindow::on_ex01_clicked()
+{
+    vtkSmartPointer<vtkCylinderSource> cylinder = vtkSmartPointer<vtkCylinderSource>::New();
+    cylinder->SetCenter(0, 0, 0);
+    cylinder->SetHeight(8.0);
+    cylinder->SetRadius(3);
+    cylinder->SetResolution(100);
+    cylinder->Update();
+
+    vtkSmartPointer<vtkCubeSource> cube = vtkSmartPointer<vtkCubeSource>::New();
+    cube->SetCenter(5, 5, 5);
+
+    vtkSmartPointer<vtkPolyDataMapper> cylinderMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    cylinderMapper->SetInputConnection(cylinder->GetOutputPort());
+
+    vtkSmartPointer<vtkPolyData> data = cylinder->GetOutput();
+
+    vtkSmartPointer<vtkPolyDataMapper> cubeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    cubeMapper->SetInputConnection(cube->GetOutputPort());
+
+
+    vtkSmartPointer<vtkActor> cylinderActor = vtkSmartPointer<vtkActor>::New();
+    cylinderActor->SetMapper(cylinderMapper);
+    cylinderActor->GetProperty()->SetOpacity(0.2);
+
+    vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
+    cubeActor->SetMapper(cubeMapper);
+
+    main_render_3d->RemoveAllViewProps();
+    main_render_3d->AddActor(cylinderActor);
+    main_render_3d->AddActor(cubeActor);
+    main_render_3d->ResetCamera();
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+

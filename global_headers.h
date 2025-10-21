@@ -26,6 +26,8 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkUnstructuredGrid.h>
 #include <vtkUnstructuredGridReader.h>
 #include <vtkDataSetMapper.h>
+#include <vtkCylinderSource.h>
+#include <vtkCubeSource.h>
 
 // occ include file
 #include <gp_Circ.hxx>

@@ -34,6 +34,8 @@ private slots:
 
     void on_btn_occbox_clicked();
 
+    void on_ex01_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
