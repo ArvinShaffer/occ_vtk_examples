@@ -28,6 +28,8 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkDataSetMapper.h>
 #include <vtkCylinderSource.h>
 #include <vtkCubeSource.h>
+#include <vtkLight.h>
+
 
 // occ include file
 #include <gp_Circ.hxx>

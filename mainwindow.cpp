@@ -109,3 +109,18 @@ void MainWindow::on_ex01_clicked()
     ui->openGLWidget->update();
 }
 
+
+void MainWindow::on_ex02light_clicked()
+{
+    // Light 1
+    vtkSmartPointer<vtkLight> light1 = vtkSmartPointer<vtkLight>::New();
+    light1->SetLightTypeToCameraLight();
+    light1->SetColor(1, 3, 1);
+    light1->SetPosition(0, 0, 1);
+    light1->SetIntensity(0.8);
+    light1->SetFocalPoint(main_render_3d->GetActiveCamera()->GetFocalPoint());
+    main_render_3d->AddLight(light1);
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+

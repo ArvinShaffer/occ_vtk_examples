@@ -36,6 +36,8 @@ private slots:
 
     void on_ex01_clicked();
 
+    void on_ex02light_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

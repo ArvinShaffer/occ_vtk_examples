@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1245</width>
-    <height>851</height>
+    <width>1357</width>
+    <height>843</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,27 +55,57 @@
      <rect>
       <x>920</x>
       <y>180</y>
-      <width>251</width>
-      <height>111</height>
+      <width>411</width>
+      <height>211</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QPushButton" name="ex01">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Ex01</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>25</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="ex02light">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
-        <string>PushButton</string>
+        <string>Ex02Light</string>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>25</width>
+         <height>16</height>
+        </size>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="pushButton_3">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -83,6 +113,12 @@
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="pushButton_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>PushButton</string>
        </property>
@@ -96,7 +132,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1245</width>
+     <width>1357</width>
      <height>23</height>
     </rect>
    </property>
