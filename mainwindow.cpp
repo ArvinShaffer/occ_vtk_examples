@@ -124,3 +124,92 @@ void MainWindow::on_ex02light_clicked()
     ui->openGLWidget->update();
 }
 
+
+void MainWindow::on_ex03ViewPort_clicked()
+{
+    //main_render_3d->RemoveAllViewProps();
+    vtkSmartPointer<vtkConeSource> cone = vtkSmartPointer<vtkConeSource>::New();
+    vtkSmartPointer<vtkCubeSource> cube = vtkSmartPointer<vtkCubeSource>::New();
+    vtkSmartPointer<vtkCylinderSource> cylinder = vtkSmartPointer<vtkCylinderSource>::New();
+    vtkSmartPointer<vtkSphereSource> sphere = vtkSmartPointer<vtkSphereSource>::New();
+
+    cone->Update();
+    cube->Update();
+    cylinder->Update();
+    sphere->Update();
+
+    vtkSmartPointer<vtkPolyDataMapper> coneMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    coneMapper->SetInputData(cone->GetOutput());
+    vtkSmartPointer<vtkPolyDataMapper> cubeMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    cubeMapper->SetInputData(cube->GetOutput());
+    vtkSmartPointer<vtkPolyDataMapper> cylinderMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    cylinderMapper->SetInputData(cylinder->GetOutput());
+    vtkSmartPointer<vtkPolyDataMapper> sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    sphereMapper->SetInputData(sphere->GetOutput());
+
+    vtkSmartPointer<vtkActor> coneActor = vtkSmartPointer<vtkActor>::New();
+    coneActor->SetMapper(coneMapper);
+    vtkSmartPointer<vtkActor> cubeActor = vtkSmartPointer<vtkActor>::New();
+    cubeActor->SetMapper(cubeMapper);
+    vtkSmartPointer<vtkActor> cylinderActor = vtkSmartPointer<vtkActor>::New();
+    cylinderActor->SetMapper(cylinderMapper);
+    vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
+    sphereActor->SetMapper(sphereMapper);
+
+    vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+    ren1->AddActor(coneActor);
+    ren1->SetBackground(1.0, 0.0, 0.0);
+    ren1->SetViewport(0.0, 0.0, 0.5, 0.5);
+
+    vtkSmartPointer<vtkRenderer> ren2 = vtkSmartPointer<vtkRenderer>::New();
+    ren2->AddActor(cubeActor);
+    ren2->SetBackground(0.0, 1.0, 0.0);
+    ren2->SetViewport(0.5, 0.0, 1.0, 0.5);
+
+    vtkSmartPointer<vtkRenderer> ren3 = vtkSmartPointer<vtkRenderer>::New();
+    ren3->AddActor(cylinderActor);
+    ren3->SetBackground(0.0, 0.0, 1.0);
+    ren3->SetViewport(0.0, 0.5, 0.5, 1.0);
+
+    vtkSmartPointer<vtkRenderer> ren4 = vtkSmartPointer<vtkRenderer>::New();
+    ren4->AddActor(sphereActor);
+    ren4->SetBackground(1.0, 1.0, 0.0);
+    ren4->SetViewport(0.5, 0.5, 1.0, 1.0);
+
+    renWin3d->AddRenderer(ren1);
+    renWin3d->AddRenderer(ren2);
+    renWin3d->AddRenderer(ren3);
+    renWin3d->AddRenderer(ren4);
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

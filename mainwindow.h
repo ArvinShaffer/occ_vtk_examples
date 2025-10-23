@@ -38,6 +38,8 @@ private slots:
 
     void on_ex02light_clicked();
 
+    void on_ex03ViewPort_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
