@@ -31,6 +31,16 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkConeSource.h>
 #include <vtkSphereSource.h>
 #include <vtkLight.h>
+#include <vtkStructuredPoints.h>
+#include <vtkStructuredPointsReader.h>
+#include <vtkFixedPointVolumeRayCastMapper.h>
+#include <vtkVolumeProperty.h>
+#include <vtkPiecewiseFunction.h>
+#include <vtkColorTransferFunction.h>
+#include <vtkVolume.h>
+#include <vtkAxesActor.h>
+#include <vtkOrientationMarkerWidget.h>
+
 
 
 // occ include file

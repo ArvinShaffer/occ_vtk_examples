@@ -24,6 +24,8 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
     RenderingOpenGL2
     GUISupportQt
     IOLegacy
+    RenderingVolume
+    RenderingVolumeOpenGL2
 )
 
 # Set source files

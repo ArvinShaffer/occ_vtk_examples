@@ -40,6 +40,8 @@ private slots:
 
     void on_ex03ViewPort_clicked();
 
+    void on_ex04volume_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

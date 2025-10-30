@@ -156,10 +156,10 @@ void MainWindow::on_ex03ViewPort_clicked()
     vtkSmartPointer<vtkActor> sphereActor = vtkSmartPointer<vtkActor>::New();
     sphereActor->SetMapper(sphereMapper);
 
-    vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
-    ren1->AddActor(coneActor);
-    ren1->SetBackground(1.0, 0.0, 0.0);
-    ren1->SetViewport(0.0, 0.0, 0.5, 0.5);
+    //vtkSmartPointer<vtkRenderer> ren1 = vtkSmartPointer<vtkRenderer>::New();
+    main_render_3d->AddActor(coneActor);
+    main_render_3d->SetBackground(1.0, 0.0, 0.0);
+    main_render_3d->SetViewport(0.0, 0.0, 0.5, 0.5);
 
     vtkSmartPointer<vtkRenderer> ren2 = vtkSmartPointer<vtkRenderer>::New();
     ren2->AddActor(cubeActor);
@@ -176,7 +176,7 @@ void MainWindow::on_ex03ViewPort_clicked()
     ren4->SetBackground(1.0, 1.0, 0.0);
     ren4->SetViewport(0.5, 0.5, 1.0, 1.0);
 
-    renWin3d->AddRenderer(ren1);
+    renWin3d->AddRenderer(main_render_3d);
     renWin3d->AddRenderer(ren2);
     renWin3d->AddRenderer(ren3);
     renWin3d->AddRenderer(ren4);
@@ -184,10 +184,71 @@ void MainWindow::on_ex03ViewPort_clicked()
     ui->openGLWidget->update();
 }
 
+void MainWindow::on_ex04volume_clicked()
+{
+    QString vtkPath = QFileDialog::getOpenFileName(
+        this,
+        tr("open vtk file"),
+        "..",
+        tr("vtk file (*.vtk)"));
+    if (vtkPath.isEmpty()) {
+        return;
+    }
+    main_render_3d->RemoveAllViewProps();
+
+    vtkSmartPointer<vtkStructuredPointsReader> vtkReader = vtkSmartPointer<vtkStructuredPointsReader>::New();
+    vtkReader->SetFileName(vtkPath.toUtf8().constData());
+    vtkReader->Update();
+    //vtkVolumeRayCastMapper定义了一个光线投影体绘制Mapper
+    vtkSmartPointer<vtkFixedPointVolumeRayCastMapper> volumeMapper = vtkSmartPointer<vtkFixedPointVolumeRayCastMapper>::New();
+    volumeMapper->SetInputData(vtkReader->GetOutput());
+
+    //设置光线采样距离
+    //volumeMapper->SetSampleDistance(volumeMapper->GetSampleDistance()*4);
+    //设置图像采样步长
+    //volumeMapper->SetAutoAdjustSampleDistances(0);
+    //volumeMapper->SetImageSampleDistance(4);
+
+    vtkSmartPointer<vtkVolumeProperty> volumeProperty = vtkSmartPointer<vtkVolumeProperty>::New();
+    volumeProperty->SetInterpolationTypeToLinear();
+    volumeProperty->ShadeOn(); //打开或者关闭阴影测试
+    volumeProperty->SetAmbient(0.4);
+    volumeProperty->SetDiffuse(0.6); //漫反射
+    volumeProperty->SetSpecular(0.2); //镜面反射
+    //设置不透明度
+    vtkSmartPointer<vtkPiecewiseFunction> compositeOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
+    compositeOpacity->AddPoint(70, 0.00);
+    compositeOpacity->AddPoint(90, 0.40);
+    compositeOpacity->AddPoint(180, 0.60);
+    volumeProperty->SetScalarOpacity(compositeOpacity); //设置不透明度传输函数
+    //compositeOpacity->AddPoint(120, 0.00);//测试隐藏部分数据,对比不同的设置
+    //compositeOpacity->AddPoint(180, 0.60);
+    //volumeProperty->SetScalarOpacity(compositeOpacity);
+    //设置梯度不透明属性
+    vtkSmartPointer<vtkPiecewiseFunction> volumeGradientOpacity = vtkSmartPointer<vtkPiecewiseFunction>::New();
+    volumeGradientOpacity->AddPoint(10, 0.0);
+    volumeGradientOpacity->AddPoint(90, 0.5);
+    volumeGradientOpacity->AddPoint(100, 1.0);
+    volumeProperty->SetGradientOpacity(volumeGradientOpacity); //设置梯度不透明度效果对比
+    //设置颜色属性
+    vtkSmartPointer<vtkColorTransferFunction> color = vtkSmartPointer<vtkColorTransferFunction>::New();
+    color->AddRGBPoint(0.000, 0.00, 0.00, 0.00);
+    color->AddRGBPoint(64.00, 1.00, 0.52, 0.30);
+    color->AddRGBPoint(190.0, 1.00, 1.00, 1.00);
+    color->AddRGBPoint(220.0, 0.20, 0.20, 0.20);
+    volumeProperty->SetColor(color);
 
 
+    vtkSmartPointer<vtkVolume> volume = vtkSmartPointer<vtkVolume>::New();
+    volume->SetMapper(volumeMapper);
+    volume->SetProperty(volumeProperty);
 
+    main_render_3d->SetBackground(0, 1, 0);
+    main_render_3d->AddVolume(volume);
 
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
 
 
 
