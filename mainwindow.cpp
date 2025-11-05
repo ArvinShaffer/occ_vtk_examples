@@ -30,7 +30,7 @@ void MainWindow::on_btn_load_clicked()
     QString vtkPath = QFileDialog::getOpenFileName(
         this,
         tr("open vtk file"),
-        "..",
+        "../..",
         tr("vtk file (*.vtk)"));
     if (vtkPath.isEmpty()) {
         return;
@@ -189,7 +189,7 @@ void MainWindow::on_ex04volume_clicked()
     QString vtkPath = QFileDialog::getOpenFileName(
         this,
         tr("open vtk file"),
-        "..",
+        "../../",
         tr("vtk file (*.vtk)"));
     if (vtkPath.isEmpty()) {
         return;
@@ -250,27 +250,38 @@ void MainWindow::on_ex04volume_clicked()
     ui->openGLWidget->update();
 }
 
+void MainWindow::on_ex05points_clicked()
+{
+    main_render_3d->RemoveAllViewProps();
+    vtkSmartPointer<vtkNamedColors> namedColors = vtkSmartPointer<vtkNamedColors>::New();
+    //namedColors->SetColor("Bkg", 0.3, 0.6, 0.3);
 
+    vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
+    vtkIdType id1 = points->InsertNextPoint(0, 0, 0); //这种插入形式 不用添加id
+    vtkIdType id2 = points->InsertNextPoint(1, 1, 1);
+    vtkIdType id3 = points->InsertNextPoint(2, 2, 2);
 
+    vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
+    polydata->SetPoints(points);
 
+    //应用 vtkVertexGlyphFilter 在点周围制作单元格，vtk 只渲染单元格。
+    vtkSmartPointer<vtkVertexGlyphFilter> vertexGlyphFilter = vtkSmartPointer<vtkVertexGlyphFilter>::New();
+    vertexGlyphFilter->AddInputData(polydata);
+    vertexGlyphFilter->Update();
 
+    // Create a mapper and actor
+    vtkSmartPointer<vtkPolyDataMapper> mapper = vtkSmartPointer<vtkPolyDataMapper>::New();
+    mapper->SetInputConnection(vertexGlyphFilter->GetOutputPort());
 
+    vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+    actor->SetMapper(mapper);
+    actor->GetProperty()->SetPointSize(100);
+    actor->GetProperty()->SetRenderPointsAsSpheres(true);
+    actor->GetProperty()->SetColor(namedColors->GetColor3d("Yellow").GetData());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    main_render_3d->AddActor(actor);
+    main_render_3d->ResetCamera();
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
 

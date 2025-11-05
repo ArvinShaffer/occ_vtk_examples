@@ -17,6 +17,7 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkInteractorStyleTrackballCamera.h>
 #include <vtkNamedColors.h>
 #include <vtkNew.h>
+#include <vtkPolyData.h>
 #include <vtkPolyDataMapper.h>
 #include <vtkProperty.h>
 #include <vtkRenderWindow.h>
@@ -40,6 +41,8 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkVolume.h>
 #include <vtkAxesActor.h>
 #include <vtkOrientationMarkerWidget.h>
+#include <vtkVertexGlyphFilter.h>
+#include <vtkCellArray.h>
 
 
 

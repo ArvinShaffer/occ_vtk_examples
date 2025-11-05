@@ -42,6 +42,8 @@ private slots:
 
     void on_ex04volume_clicked();
 
+    void on_ex05points_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
