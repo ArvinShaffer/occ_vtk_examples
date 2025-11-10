@@ -285,3 +285,58 @@ void MainWindow::on_ex05points_clicked()
     ui->openGLWidget->update();
 }
 
+
+void MainWindow::on_ex06scalarBar_clicked()
+{
+    QString vtkPath = QFileDialog::getOpenFileName(
+        this,
+        tr("open vtk file"),
+        "../../",
+        tr("vtk file (*.vtk)"));
+    if (vtkPath.isEmpty()) {
+        return;
+    }
+    main_render_3d->RemoveAllViewProps();
+
+    vtkSmartPointer<vtkUnstructuredGridReader> vtkReader = vtkSmartPointer<vtkUnstructuredGridReader>::New();
+    vtkReader->SetFileName(vtkPath.toUtf8().constData());
+    vtkReader->Update();
+
+    vtkSmartPointer<vtkLookupTable> lut = vtkSmartPointer<vtkLookupTable>::New();
+    lut->Build();
+    vtkSmartPointer<vtkDataSetMapper> mapper = vtkSmartPointer<vtkDataSetMapper>::New();
+    mapper->SetInputData(vtkReader->GetOutput());
+    mapper->SetScalarRange(vtkReader->GetOutput()->GetScalarRange());
+    mapper->SetLookupTable(lut);
+
+    vtkSmartPointer<vtkActor> actor = vtkSmartPointer<vtkActor>::New();
+    actor->SetMapper(mapper);
+
+    main_render_3d->AddActor(actor);
+    //main_render_3d->SetBackground(1, 1, 1);
+
+    if (!m_scalarBarWidget) {
+        m_scalarBarWidget = vtkSmartPointer<vtkScalarBarWidget>::New();
+    }
+    if (!m_scalarBarActor) {
+        m_scalarBarActor = vtkSmartPointer<vtkScalarBarActor>::New();
+    }
+
+    m_scalarBarActor->SetOrientationToHorizontal();
+    m_scalarBarActor->SetLookupTable(lut);
+    m_scalarBarActor->DrawBackgroundOn();
+    m_scalarBarActor->GetBackgroundProperty()->SetColor(0, 0, 0);
+
+    m_scalarBarWidget->SetInteractor(ui->openGLWidget->interactor());
+    m_scalarBarWidget->SetScalarBarActor(m_scalarBarActor);
+    m_scalarBarWidget->EnabledOn();
+    m_scalarBarWidget->RepositionableOn();
+    //scalarBarWidget->On();
+
+
+    //main_render_3d->AddActor(scalarBarActor);
+    main_render_3d->ResetCamera();
+    renWin3d->Render();
+    ui->openGLWidget->update();
+}
+

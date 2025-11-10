@@ -44,8 +44,12 @@ private slots:
 
     void on_ex05points_clicked();
 
+    void on_ex06scalarBar_clicked();
+
 private:
     Ui::MainWindow *ui;
+    vtkSmartPointer<vtkScalarBarWidget> m_scalarBarWidget;
+    vtkSmartPointer<vtkScalarBarActor>  m_scalarBarActor;
 };
 
 #endif // MAINWINDOW_H

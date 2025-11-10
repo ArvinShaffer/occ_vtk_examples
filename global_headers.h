@@ -43,6 +43,10 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkOrientationMarkerWidget.h>
 #include <vtkVertexGlyphFilter.h>
 #include <vtkCellArray.h>
+#include <vtkLookupTable.h>
+#include <vtkScalarBarActor.h>
+#include <vtkProperty2D.h>
+#include <vtkScalarBarWidget.h>
 
 
 

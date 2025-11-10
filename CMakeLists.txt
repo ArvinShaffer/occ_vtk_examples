@@ -26,6 +26,7 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
     IOLegacy
     RenderingVolume
     RenderingVolumeOpenGL2
+    RenderingAnnotation
 )
 
 # Set source files
