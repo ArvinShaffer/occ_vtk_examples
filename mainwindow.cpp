@@ -257,9 +257,13 @@ void MainWindow::on_ex05points_clicked()
     //namedColors->SetColor("Bkg", 0.3, 0.6, 0.3);
 
     vtkSmartPointer<vtkPoints> points = vtkSmartPointer<vtkPoints>::New();
-    vtkIdType id1 = points->InsertNextPoint(0, 0, 0); //这种插入形式 不用添加id
-    vtkIdType id2 = points->InsertNextPoint(1, 1, 1);
-    vtkIdType id3 = points->InsertNextPoint(2, 2, 2);
+    // vtkIdType id1 = points->InsertNextPoint(0, 0, 0); //这种插入形式 不用添加id
+    // vtkIdType id2 = points->InsertNextPoint(1, 1, 1);
+    // vtkIdType id3 = points->InsertNextPoint(2, 2, 2);
+
+    points->InsertNextPoint(0, 0, 0);
+    points->InsertNextPoint(1, 1, 1);
+    points->InsertNextPoint(2, 2, 2);
 
     vtkSmartPointer<vtkPolyData> polydata = vtkSmartPointer<vtkPolyData>::New();
     polydata->SetPoints(points);
