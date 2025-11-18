@@ -61,9 +61,9 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton_3">
+      <widget class="QPushButton" name="ex07lut">
        <property name="text">
-        <string>PushButton</string>
+        <string>Ex07Lut</string>
        </property>
       </widget>
      </item>

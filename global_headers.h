@@ -47,6 +47,10 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 #include <vtkScalarBarActor.h>
 #include <vtkProperty2D.h>
 #include <vtkScalarBarWidget.h>
+#include <vtkFloatArray.h>
+#include <vtkCellDataToPointData.h>
+#include <vtkCellData.h>
+#include <vtkCellType.h>
 
 
 
