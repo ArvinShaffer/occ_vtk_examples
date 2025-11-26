@@ -32,21 +32,48 @@ find_package(VTK 9.3 REQUIRED COMPONENTS
 # Set source files
 set(SOURCES
     src/main.cpp
+    mainwindow.cpp
+    examples/Example.cpp
+    examples/ExampleRegistry.cpp
+    examples/occ/OccBoxExample.cpp
+    examples/vtk/VtkDataLoaderExample.cpp
+    examples/vtk/VtkPrimitivesExample.cpp
+    examples/vtk/VtkLightingExample.cpp
+    examples/vtk/VtkViewportExample.cpp
+    examples/vtk/VtkVolumeRenderingExample.cpp
+    examples/vtk/VtkPointsExample.cpp
+    examples/vtk/VtkScalarBarExample.cpp
+    examples/vtk/VtkLookupTableExample.cpp
 )
 
 set(HEADERS
     global_headers.h
+    mainwindow.h
+    examples/Example.h
+    examples/ExampleRegistry.h
+    examples/occ/OccBoxExample.h
+    examples/vtk/VtkDataLoaderExample.h
+    examples/vtk/VtkPrimitivesExample.h
+    examples/vtk/VtkLightingExample.h
+    examples/vtk/VtkViewportExample.h
+    examples/vtk/VtkVolumeRenderingExample.h
+    examples/vtk/VtkPointsExample.h
+    examples/vtk/VtkScalarBarExample.h
+    examples/vtk/VtkLookupTableExample.h
 )
 
 
 # Add executable
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS}
-    mainwindow.h mainwindow.cpp mainwindow.ui
-    )
+add_executable(${PROJECT_NAME}
+    ${SOURCES}
+    ${HEADERS}
+    mainwindow.ui
+)
 
 # Include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}
     /opt/opencascade-7.9.1/include/opencascade
     /usr/local/include/vtk-9.3
 )

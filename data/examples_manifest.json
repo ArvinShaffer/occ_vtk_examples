@@ -1,0 +1,101 @@
+{
+  "categories": [
+    {
+      "id": "vtk_basics",
+      "title": "VTK 基础",
+      "description": "几何体、点集与颜色表等入门示例。"
+    },
+    {
+      "id": "vtk_rendering",
+      "title": "渲染与交互",
+      "description": "涉及光照、视口布局、体绘制及标注控件。"
+    },
+    {
+      "id": "vtk_data",
+      "title": "数据与 I/O",
+      "description": "演示如何从数据文件构建数据集。"
+    },
+    {
+      "id": "occ_shapes",
+      "title": "OpenCascade 几何",
+      "description": "展示 OCC 几何建模与 VTK 融合。"
+    }
+  ],
+  "examples": [
+    {
+      "id": "vtk_data_loader",
+      "class": "VtkDataLoaderExample",
+      "category": "vtk_data",
+      "title": "VTK 文件加载",
+      "description": "加载 legacy VTK 非结构网格并展示。",
+      "tags": ["vtk", "io"],
+      "dataPath": "loadfile/test.vtk"
+    },
+    {
+      "id": "vtk_primitives",
+      "class": "VtkPrimitivesExample",
+      "category": "vtk_basics",
+      "title": "几何组合",
+      "description": "圆柱与立方体的组合显示。",
+      "tags": ["vtk", "geometry"]
+    },
+    {
+      "id": "vtk_lighting",
+      "class": "VtkLightingExample",
+      "category": "vtk_rendering",
+      "title": "光源控制",
+      "description": "通过参数调整光源颜色与强度。",
+      "tags": ["vtk", "lighting"]
+    },
+    {
+      "id": "vtk_viewports",
+      "class": "VtkViewportExample",
+      "category": "vtk_rendering",
+      "title": "多视口排布",
+      "description": "单窗口布置四个 renderer。",
+      "tags": ["vtk", "layout"]
+    },
+    {
+      "id": "vtk_volume",
+      "class": "VtkVolumeRenderingExample",
+      "category": "vtk_rendering",
+      "title": "体绘制",
+      "description": "固定点射线投射体绘示例。",
+      "tags": ["vtk", "volume"],
+      "dataPath": "Ex04.vtk"
+    },
+    {
+      "id": "vtk_points",
+      "class": "VtkPointsExample",
+      "category": "vtk_basics",
+      "title": "点集可视化",
+      "description": "将点转为 glyph 并自定义样式。",
+      "tags": ["vtk", "points"]
+    },
+    {
+      "id": "vtk_scalar_bar",
+      "class": "VtkScalarBarExample",
+      "category": "vtk_rendering",
+      "title": "ScalarBar 控件",
+      "description": "动态 LUT + Scalar Bar widget。",
+      "tags": ["vtk", "annotation"],
+      "dataPath": "Ex06.vtk"
+    },
+    {
+      "id": "vtk_lut",
+      "class": "VtkLookupTableExample",
+      "category": "vtk_basics",
+      "title": "LUT 自定义",
+      "description": "手工网格与色标映射。",
+      "tags": ["vtk", "colors"]
+    },
+    {
+      "id": "occ_box",
+      "class": "OccBoxExample",
+      "category": "occ_shapes",
+      "title": "OCC 盒体",
+      "description": "OpenCascade 盒体参数化示例。",
+      "tags": ["occ", "primitives"]
+    }
+  ]
+}

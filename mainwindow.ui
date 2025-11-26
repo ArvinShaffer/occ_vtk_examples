@@ -14,160 +14,145 @@
    <string>occ_vtk_examples</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QVTKOpenGLNativeWidget" name="openGLWidget">
-    <property name="geometry">
-     <rect>
-      <x>90</x>
-      <y>50</y>
-      <width>811</width>
-      <height>791</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>60</y>
-      <width>160</width>
-      <height>92</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QPushButton" name="btn_load">
-       <property name="text">
-        <string>Load File</string>
-       </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="childrenCollapsible">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="navigationPanel">
+       <layout class="QVBoxLayout" name="navigationLayout">
+        <property name="spacing">
+         <number>8</number>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="lineSearch">
+          <property name="placeholderText">
+           <string>搜索示例...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTreeWidget" name="treeCategories">
+          <column>
+           <property name="text">
+            <string>分类</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QListWidget" name="listExamples">
+          <property name="uniformItemSizes">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnRunExample">
+          <property name="text">
+           <string>运行示例</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="btn_occbox">
-       <property name="text">
-        <string>occbox</string>
-       </property>
+      <widget class="QWidget" name="contentPanel">
+       <layout class="QVBoxLayout" name="contentLayout">
+        <item>
+         <widget class="QLabel" name="lblExampleTitle">
+          <property name="styleSheet">
+           <string notr="true">font-size: 20px; font-weight: 600;</string>
+          </property>
+          <property name="text">
+           <string>选择一个示例</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QVTKOpenGLNativeWidget" name="openGLWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>640</width>
+            <height>480</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTabWidget" name="tabPanels">
+          <property name="tabPosition">
+           <enum>QTabWidget::North</enum>
+          </property>
+          <widget class="QWidget" name="tabParameters">
+           <attribute name="title">
+            <string>参数</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="tabParametersLayout">
+            <item>
+             <widget class="QScrollArea" name="paramScrollArea">
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="paramsFormContainer">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>1074</width>
+                 <height>350</height>
+                </rect>
+               </property>
+               <layout class="QFormLayout" name="formParameters"/>
+              </widget>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabDetails">
+           <attribute name="title">
+            <string>说明</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="tabDetailsLayout">
+            <item>
+             <widget class="QTextBrowser" name="txtDescription">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="tabLogs">
+           <attribute name="title">
+            <string>日志</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="tabLogsLayout">
+            <item>
+             <widget class="QPlainTextEdit" name="txtLog">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>920</x>
-      <y>180</y>
-      <width>411</width>
-      <height>211</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="0">
-      <widget class="QPushButton" name="ex07lut">
-       <property name="text">
-        <string>Ex07Lut</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="ex06scalarBar">
-       <property name="text">
-        <string>Ex06ScalarBar</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_4">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="ex03ViewPort">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ex03ViewPort</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="ex01">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ex01</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>25</width>
-         <height>16</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="ex04volume">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ex04体绘制</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="ex05points">
-       <property name="text">
-        <string>Ex05Points</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="ex02light">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Ex02Light</string>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>25</width>
-         <height>16</height>
-        </size>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QPushButton" name="pushButton_5">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

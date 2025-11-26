@@ -3,12 +3,20 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include "global_headers.h"
+#include <QMap>
+#include <memory>
 
+#include "examples/Example.h"
+#include "examples/ExampleRegistry.h"
+#include "global_headers.h"
 
 namespace Ui {
 class MainWindow;
 }
+
+class QFormLayout;
+class QListWidgetItem;
+class QTreeWidgetItem;
 
 class MainWindow : public QMainWindow
 {
@@ -18,40 +26,44 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    //Render
     vtkSmartPointer<vtkRenderer> main_render_3d;
-    //renWin
     vtkSmartPointer<vtkGenericOpenGLRenderWindow> renWin3d;
-    //actor
-    vtkSmartPointer<vtkActor> current_actor;
-    vtkSmartPointer<vtkUnstructuredGrid> ugrid;
-
-    //colors
     vtkSmartPointer<vtkNamedColors> colors;
-
-private slots:
-    void on_btn_load_clicked();
-
-    void on_btn_occbox_clicked();
-
-    void on_ex01_clicked();
-
-    void on_ex02light_clicked();
-
-    void on_ex03ViewPort_clicked();
-
-    void on_ex04volume_clicked();
-
-    void on_ex05points_clicked();
-
-    void on_ex06scalarBar_clicked();
-
-    void on_ex07lut_clicked();
 
 private:
     Ui::MainWindow *ui;
-    vtkSmartPointer<vtkScalarBarWidget> m_scalarBarWidget;
-    vtkSmartPointer<vtkScalarBarActor>  m_scalarBarActor;
+    ExampleRegistry& m_registry;
+    ExampleDefinition m_currentDefinition;
+    ExamplePtr m_activeExample;
+    QList<ExampleParameter> m_currentParameters;
+    QMap<QString, QWidget*> m_parameterEditors;
+    QFormLayout* m_parametersLayout = nullptr;
+    QString m_currentCategoryId;
+    QString m_currentExampleId;
+    QString m_dataRoot;
+
+    void initializeRenderWindow();
+    void initializeNavigation();
+    void loadManifest();
+    void populateCategoryTree();
+    void populateExamplesForCategory(const QString& categoryId);
+    void applySearchFilter(const QString& pattern);
+    void displayExample(const QString& exampleId);
+    void rebuildParameterPanel();
+    QWidget* createEditor(const ExampleParameter& parameter);
+    QVariant editorValue(const ExampleParameter& parameter, QWidget* editor) const;
+    QVariantMap gatherParameters() const;
+    QString resolveDataPath(const QString& relative) const;
+    QString locateDataDirectory() const;
+    void runActiveExample();
+    void appendLog(const QString& message);
+
+private slots:
+    void handleCategorySelection();
+    void handleExampleSelection();
+    void handleExampleActivation(QListWidgetItem* item);
+    void handleRunExample();
+    void handleSearchTextChanged(const QString& text);
 };
 
 #endif // MAINWINDOW_H
